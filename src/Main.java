@@ -43,8 +43,15 @@ public class Main {
      * This function uses MergeSort to sort the arrayList.
      * @param arrayList the ArrayList to be sorted. arrayList cannot contain duplicates
      */
-    public static void mergeSort(ArrayList<Integer> arrayList) {
-        throw new UnsupportedOperationException("mergeSort() has not been implemented yet");
+    public static void mergeSort(ArrayList<Integer> arrayList)
+    {
+        //break up array list
+        if(arrayList.size() == 1)
+            return arrayList.get(1);
+        int size = arrayList.size();
+        arrayList<Integer> new1 = new ArrayList<Integer>(size/2);
+
+        //put back together
     }
 
     /**
@@ -57,7 +64,18 @@ public class Main {
      * @param hi the index of the last element in the range + 1.
      */
     public static void sort(ArrayList<Integer> arrayList, int lo, int hi) {
-        throw new UnsupportedOperationException("sort() has not been implemented yet");
+        if (lo < hi)
+        {
+            // Find the middle point
+            int m = (lo+hi)/2;
+
+            // Sort first and second halves
+            sort(arrayList, lo, m);
+            sort(arrayList , m+1, hi);
+
+            // Merge the sorted halves
+            merge(arrayList, lo, m, hi);
+        }
     }
 
     /**
@@ -71,6 +89,21 @@ public class Main {
      * @param hi the index of the last element in the second range + 1.
      */
     public static void merge(ArrayList<Integer> arrayList, int lo, int mid, int hi) {
-        throw new UnsupportedOperationException("merge() has not been implemented yet");
-    }
+        ArrayList<Integer> sorted = new ArrayList<Integer>();
+        int x = lo;
+        int y = mid;
+        int z = hi;
+
+        while (x < z/2 && y < z)
+        {
+            if (arrayList.get(x) > arrayList.get(y)) {
+                sorted.add(y);
+                y += 1;
+            }
+
+            if (arrayList.get(x) )
+
+
+
+        }
 }
