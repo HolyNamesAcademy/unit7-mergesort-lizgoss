@@ -76,7 +76,7 @@ public class Main {
     }
 
     /**
-     * This function is a helper function used to help you implement mergeSort.
+     * This function is a helper function used to help you implement mergeSort.NNN
      * The function merges two consecutive, sorted ranges in the arrayList into one sorted range. The ranges
      * are specified as [lo, mid) and [mid, hi). Each range includes the first element, but excludes
      * the last element (the same way as in sort()).
