@@ -48,7 +48,10 @@ public class Main {
      * @param arrayList the ArrayList to be sorted. arrayList cannot contain duplicates
      */
     public static void mergeSort(ArrayList<Integer> arrayList) {
-        sort(arrayList, 0,arrayList.size());
+
+        sort(arrayList, 0, arrayList.size());
+        merge(arrayList,0, arrayList.size()/2, arrayList.size());
+
     }
 
     /**
@@ -56,23 +59,20 @@ public class Main {
      * The function sorts the portion of arrayList specified by the range [lo, hi). The range
      * includes lo but excludes hi (arrayList[lo] is the first element in the range, but
      * arrayList[hi] is the first element after the last element in the range).
-     *
      * @param arrayList the ArrayList to be sorted.
-     * @param lo        the index of the first element in the range
-     * @param hi        the index of the last element in the range + 1.
+     * @param lo the index of the first element in the range
+     * @param hi the index of the last element in the range + 1.
      */
     public static void sort(ArrayList<Integer> arrayList, int lo, int hi) {
-        if (lo < hi) {
-            // Find the middle point
-            int m = (lo + hi) / 2;
-
-            // Sort first and second halves
-            sort(arrayList, lo, m);
-            sort(arrayList, m + 1, hi);
-
-            // Merge the sorted halves
-            merge(arrayList, lo, m, hi);
+        if(hi - lo <= 1)
+        {
+            return;
         }
+
+        int mid = (hi + lo) / 2;
+        sort(arrayList, lo, mid);
+        sort(arrayList, mid, hi);
+        merge(arrayList, lo, mid, hi);
     }
 
     /**
@@ -80,36 +80,44 @@ public class Main {
      * The function merges two consecutive, sorted ranges in the arrayList into one sorted range. The ranges
      * are specified as [lo, mid) and [mid, hi). Each range includes the first element, but excludes
      * the last element (the same way as in sort()).
-     *
      * @param arrayList the ArrayList to be sorted.
-     * @param lo        the index of the first element in the first range
-     * @param mid       the boundary point of the two ranges. arrayList[mid] is in the second range.
-     * @param hi        the index of the last element in the second range + 1.
+     * @param lo the index of the first element in the first range
+     * @param mid the boundary point of the two ranges. arrayList[mid] is in the second range.
+     * @param hi the index of the last element in the second range + 1.
      */
-    public static void merge(ArrayList<Integer> arrayList, int lo, int mid, int hi) {
-        ArrayList<Integer> sorted = new ArrayList<Integer>();
-        int x = lo;
-        int y = mid;
-        int z = hi;
+    public static void merge(ArrayList<Integer> arrayList, int lo, int mid, int hi)
+    {
+        ArrayList<Integer> tempArray = new ArrayList<Integer>();
+        int i = lo;
+        int j = mid;
 
-        while (x < mid && y < hi) {
-            if (arrayList.get(x) > arrayList.get(y)) {
-                sorted.add(arrayList.get(y));
-                y += 1;
-            } else if (arrayList.get(x) < arrayList.get(y)) {
-                sorted.add(arrayList.get(x));
-                x += 1;
-            } else if (x == mid) {
-                sorted.add(arrayList.get(y));
-                y += 1;
-            } else if (y == hi) {
-                sorted.add(arrayList.get(x));
-                x += 1;
+        while(i < mid || j < hi)
+        {
+            if(j == hi)
+            {
+                tempArray.add(arrayList.get(i));
+                i++;
+            }
+            else if(i == mid)
+            {
+                tempArray.add(arrayList.get(j));
+                j++;
+            }
+            else if(arrayList.get(j) < arrayList.get(i))
+            {
+                tempArray.add(arrayList.get(j));
+                j++;
+            }
+            else
+            {
+                tempArray.add(arrayList.get(i));
+                i++;
             }
         }
-        for (int i = lo; i < hi - 2; i++)
-        {
-            arrayList.set(i, sorted.get(i));
+        for (int index = 0; index < tempArray.size(); index++) {
+
+            arrayList.set(index + lo, tempArray.get(index));
+
         }
     }
 }
